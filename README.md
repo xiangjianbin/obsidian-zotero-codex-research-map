@@ -111,6 +111,8 @@ flowchart LR
 
 完整方案见 `docs/07-ai-literature-discovery-to-zotero.md`。
 
+如果只想照着一步步执行，直接看 `docs/08-operational-playbook.md`。
+
 ## 适合谁
 
 - 想把 Zotero 文献变成可维护知识图谱的研究者。
