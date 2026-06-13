@@ -1,5 +1,7 @@
 # Obsidian 插件设置
 
+更详细的逐步截图教程见 [docs/09-plugin-configuration-deep-dive.md](09-plugin-configuration-deep-dive.md)。
+
 这个工作流示例中安装过 8 个插件，其中 6 个是核心启用插件，2 个是可选 AI 插件。
 
 | 插件 ID | 插件名 | 示例版本 | 角色 |

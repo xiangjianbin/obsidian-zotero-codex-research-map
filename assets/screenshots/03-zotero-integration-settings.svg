@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#f8fafc"/>
+  <text x="60" y="70" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">示意截图 3：Zotero Integration 导入格式</text>
+  <rect x="60" y="110" width="1080" height="540" rx="18" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="100" y="165" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1f2937">Export Format: Literature note</text>
+  <rect x="100" y="205" width="900" height="50" rx="8" fill="#eff6ff"/>
+  <text x="125" y="238" font-family="Arial, sans-serif" font-size="20" fill="#1e3a8a">Note Import Folder: Zotero</text>
+  <rect x="100" y="275" width="900" height="50" rx="8" fill="#f1f5f9"/>
+  <text x="125" y="308" font-family="Arial, sans-serif" font-size="20" fill="#334155">Output Path Template: 文献卡片/{{citekey}}.md</text>
+  <rect x="100" y="345" width="900" height="50" rx="8" fill="#f1f5f9"/>
+  <text x="125" y="378" font-family="Arial, sans-serif" font-size="20" fill="#334155">Image Output Path Template: 附件图片/{{citekey}}/</text>
+  <rect x="100" y="415" width="900" height="50" rx="8" fill="#f1f5f9"/>
+  <text x="125" y="448" font-family="Arial, sans-serif" font-size="20" fill="#334155">Template Path: Zotero/模板/Zotero文献卡片模板.md</text>
+  <rect x="100" y="485" width="900" height="50" rx="8" fill="#fef3c7"/>
+  <text x="125" y="518" font-family="Arial, sans-serif" font-size="20" fill="#92400e">Citation Style: china-national-standard-gb-t-7714-2015-author-date</text>
+  <text x="100" y="600" font-family="Arial, sans-serif" font-size="19" fill="#64748b">踩坑：Zotero 必须开着；citekey 依赖 Better BibTeX；模板变量是 Nunjucks，不是普通 Markdown 占位符。</text>
+</svg>

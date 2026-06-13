@@ -113,6 +113,8 @@ flowchart LR
 
 如果只想照着一步步执行，直接看 `docs/08-operational-playbook.md`。
 
+如果要看每个 Obsidian/Zotero 插件的详细配置、示意截图、教程链接和踩坑记录，看 [docs/09-plugin-configuration-deep-dive.md](docs/09-plugin-configuration-deep-dive.md)。
+
 ## 适合谁
 
 - 想把 Zotero 文献变成可维护知识图谱的研究者。

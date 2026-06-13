@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#f8fafc"/>
+  <text x="60" y="70" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">示意截图 5：AI 扩文献同步闭环</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <g font-family="Arial, sans-serif" font-size="22" fill="#111827">
+    <rect x="70" y="180" width="210" height="90" rx="16" fill="#dbeafe" stroke="#3b82f6"/>
+    <text x="105" y="235">AI 搜候选</text>
+    <rect x="360" y="180" width="210" height="90" rx="16" fill="#fef3c7" stroke="#f59e0b"/>
+    <text x="395" y="235">人工确认</text>
+    <rect x="650" y="180" width="210" height="90" rx="16" fill="#dcfce7" stroke="#22c55e"/>
+    <text x="690" y="235">Zotero 保存</text>
+    <rect x="650" y="390" width="210" height="90" rx="16" fill="#e0f2fe" stroke="#0284c7"/>
+    <text x="680" y="445">BibTeX 同步</text>
+    <rect x="360" y="390" width="210" height="90" rx="16" fill="#ede9fe" stroke="#8b5cf6"/>
+    <text x="410" y="445">Codex 更新</text>
+    <rect x="70" y="390" width="210" height="90" rx="16" fill="#ffe4e6" stroke="#f43f5e"/>
+    <text x="105" y="445">Obsidian 图谱</text>
+  </g>
+  <line x1="280" y1="225" x2="360" y2="225" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="570" y1="225" x2="650" y2="225" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="755" y1="270" x2="755" y2="390" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="650" y1="435" x2="570" y2="435" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="360" y1="435" x2="280" y2="435" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M175 390 C120 330, 120 300, 175 270" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="120" y="610" font-family="Arial, sans-serif" font-size="20" fill="#64748b">关键点：AI 先进入候选池，不直接写 Zotero；确认后再进入正式文献库。</text>
+</svg>
