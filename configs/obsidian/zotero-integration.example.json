@@ -1,0 +1,28 @@
+{
+  "database": "Zotero",
+  "noteImportFolder": "Zotero",
+  "pdfExportImageDPI": 120,
+  "pdfExportImageFormat": "jpg",
+  "pdfExportImageQuality": 90,
+  "citeFormats": [
+    {
+      "name": "GB/T 7714 author-date",
+      "format": "formatted-citation",
+      "cslStyle": "china-national-standard-gb-t-7714-2015-author-date"
+    }
+  ],
+  "exportFormats": [
+    {
+      "name": "Literature note",
+      "outputPathTemplate": "文献卡片/{{citekey}}.md",
+      "imageOutputPathTemplate": "附件图片/{{citekey}}/",
+      "imageBaseNameTemplate": "annot",
+      "templatePath": "Zotero/模板/Zotero文献卡片模板.md",
+      "cslStyle": "china-national-standard-gb-t-7714-2015-author-date"
+    }
+  ],
+  "citeSuggestTemplate": "[[{{citekey}}]]",
+  "openNoteAfterImport": true,
+  "whichNotesToOpenAfterImport": "first-imported-note",
+  "shouldConcat": true
+}
