@@ -81,7 +81,200 @@ flowchart LR
 | Copilot | 3.3.3 | 在 Obsidian 内进行局部 AI 问答和笔记草稿 | 可选 |
 | Text Generator | 0.8.7 | 单篇笔记的 AI 文本生成 | 可选 |
 
-详细配置见 `docs/02-obsidian-plugin-settings.md`。
+## 插件配置速览
+
+下面这部分是 README 版的完整配置说明。更细的截图教程和踩坑记录见 [docs/09-plugin-configuration-deep-dive.md](docs/09-plugin-configuration-deep-dive.md)。
+
+### 1. Zotero + Better BibTeX
+
+目标是让 Zotero 文献库变大时，自动更新一个 `.bib` 文件，Codex 再根据这个 `.bib` 增量更新 Obsidian。
+
+![Better BibTeX Keep Updated](assets/screenshots/01-better-bibtex-keep-updated.svg)
+
+操作：
+
+1. 安装 Zotero Desktop。
+2. 安装 Better BibTeX for Zotero。
+3. 在 Zotero 中新建一个 collection，例如 `Research Map - Gravity Magnetic Inversion`。
+4. 把要进入知识图谱的论文放入这个 collection。
+5. 右键 collection，选择 `Export Collection...`。
+6. Format 选择 `Better BibTeX`。
+7. 勾选 `Keep updated`。
+8. 导出到 Obsidian vault 内，例如 `Zotero/导出文件/research-library.bib`。
+
+关键点：
+
+- 只导出研究 collection，不建议导出整个 Zotero library。
+- citekey 规则确定后尽量不要频繁改变。
+- `.bib` 放在 Obsidian vault 中，便于 Codex、Dataview 和 Git 统一管理。
+- 不要把 Zotero `storage` 文件夹或原始 PDF 放进公开仓库。
+
+### 2. Zotero Connector
+
+目标是从网页、出版社页面、DOI 页面把元数据和 PDF 保存进 Zotero。
+
+操作：
+
+1. 安装浏览器版 Zotero Connector。
+2. 打开 Zotero Desktop。
+3. 打开论文的出版社页面、数据库页面或 DOI 页面。
+4. 点击浏览器工具栏的 Zotero 保存按钮。
+5. 回到 Zotero 检查标题、作者、年份、DOI、期刊和 PDF 是否正确。
+6. 把条目拖入研究 collection。
+
+常见问题：
+
+- 只保存了 PDF，没有元数据：尽量从论文详情页保存，不要只拖 PDF。
+- Connector 没反应：先确认 Zotero Desktop 正在运行。
+- PDF 没自动下载：可能是权限或机构访问问题，先保存元数据，再手动补 PDF。
+
+### 3. Obsidian 社区插件
+
+目标是在 Obsidian 里启用文献矩阵、Zotero 导入、图谱展示和终端维护能力。
+
+![Community Plugins](assets/screenshots/02-obsidian-community-plugins.svg)
+
+推荐安装顺序：
+
+1. Dataview
+2. Zotero Integration
+3. Mermaid Tools
+4. Advanced Canvas
+5. Excalidraw
+6. Terminal
+7. 可选：Copilot、Text Generator
+
+操作：
+
+1. 打开 Obsidian `Settings`。
+2. 进入 `Community plugins`。
+3. 关闭 `Restricted mode`。
+4. 点击 `Browse` 搜索插件名。
+5. 点击 `Install`。
+6. 安装后点击 `Enable`。
+
+常见问题：
+
+- 安装插件后还要手动启用，否则不会生效。
+- `.obsidian/community-plugins.json` 只记录启用列表，不等于插件本体都已安装。
+- Copilot、Text Generator 等 AI 插件的 `data.json` 可能包含 provider、模型和 key，不要公开。
+
+### 4. Zotero Integration
+
+目标是从 Zotero 导入文献卡片、引用信息、PDF 注释和注释图片。
+
+![Zotero Integration Settings](assets/screenshots/03-zotero-integration-settings.svg)
+
+推荐配置：
+
+```json
+{
+  "database": "Zotero",
+  "noteImportFolder": "Zotero",
+  "outputPathTemplate": "文献卡片/{{citekey}}.md",
+  "imageOutputPathTemplate": "附件图片/{{citekey}}/",
+  "templatePath": "Zotero/模板/Zotero文献卡片模板.md",
+  "openNoteAfterImport": true
+}
+```
+
+配置逻辑：
+
+- `noteImportFolder` 是导入根目录。
+- `outputPathTemplate` 决定文献卡片路径。
+- `imageOutputPathTemplate` 决定 PDF 注释图片路径。
+- `templatePath` 指向 Obsidian 中的 Zotero 文献卡片模板。
+- 模板变量使用 Nunjucks，例如 `{{citekey}}`、`{{title}}`、`{{authorString}}`、`{{year}}`、`{{DOI}}`、`{{zoteroSelectURI}}`。
+
+常见问题：
+
+- citekey 为空：检查 Zotero 是否安装 Better BibTeX，条目是否有 citation key。
+- 导入路径不对：`noteImportFolder` 和 `outputPathTemplate` 是拼接关系。
+- PDF 注释没有导入：确认注释是在 Zotero PDF reader 中生成的。
+- Zotero 没运行：Obsidian 可能找不到 Zotero 条目。
+
+### 5. Dataview
+
+目标是把文献卡片和问题节点的 YAML 字段自动变成表格。
+
+![Dataview Literature Matrix](assets/screenshots/04-dataview-literature-matrix.svg)
+
+文献矩阵示例：
+
+```dataview
+TABLE year, methods, solves, evidence_level, status
+FROM "Zotero/文献卡片"
+WHERE contains(["paper", "literature"], type)
+SORT year ASC
+```
+
+问题节点表示例：
+
+```dataview
+TABLE status AS "传统状态", ml_opportunity AS "ML机会", domains AS "适用领域"
+FROM "重磁反演知识图谱/问题节点"
+WHERE type = "problem"
+SORT ml_opportunity DESC
+```
+
+常见问题：
+
+- YAML 字段名必须统一，`evidence_level` 和 `evidence-level` 会被视为两个字段。
+- Markdown 表格里不要直接塞复杂 wiki link，`|` 可能破坏表格。
+- Dataview 只负责查询显示，不会替你修改笔记；批量写入交给 Codex。
+
+### 6. Canvas、Mermaid、Excalidraw
+
+三者分工：
+
+- Mermaid：适合在总览页维护 `mindmap`、`flowchart`、路线图。
+- Advanced Canvas：适合把科学挑战、代表论文、ML 机会、PDF 底稿摆成空间图谱。
+- Excalidraw：适合画机制图、方法框架图、论文插图草稿。
+
+建议：
+
+- 总览图只放结构，不塞长证据。
+- 证据写在文献卡片和问题节点里。
+- Canvas 不要放入每一篇论文，否则会很快变乱。
+
+### 7. Terminal、Codex 和 AI 插件
+
+Terminal 是 Obsidian 内的命令入口，Codex 是跨文件维护者，Copilot/Text Generator 是局部写作助手。
+
+常用命令：
+
+```powershell
+git status --short
+rg -n "pdf_path: \"\"" "Zotero/文献卡片"
+rg -n "type: problem" "重磁反演知识图谱/问题节点"
+rg -n "TODO|待补|缺 PDF" .
+```
+
+推荐分工：
+
+- Terminal：快速检查 Git、路径、字段和待办。
+- Codex：批量读 `.bib`、生成文献卡片、读取 PDF、更新问题树、提交 GitHub。
+- Copilot：问当前笔记、局部总结。
+- Text Generator：生成单篇笔记的段落草稿。
+
+不要把 API key、token、AI 插件私有配置、Zotero storage、原始 PDF 放进公开仓库。
+
+## 官方教程入口
+
+这些是 README 中配置方案对应的官方或维护者文档：
+
+- [Obsidian Community Plugins](https://help.obsidian.md/community-plugins)
+- [Better BibTeX automatic export](https://retorque.re/zotero-better-bibtex/exporting/auto/)
+- [Better BibTeX for Zotero](https://retorque.re/zotero-better-bibtex/)
+- [Zotero 添加条目](https://www.zotero.org/support/adding_items_to_zotero)
+- [Zotero Connector](https://www.zotero.org/download/connectors)
+- [Zotero Connector 故障排查](https://www.zotero.org/support/troubleshooting_translator_issues)
+- [Obsidian Zotero Integration](https://github.com/mgmeyers/obsidian-zotero-integration)
+- [Zotero Integration 模板语法](https://github.com/mgmeyers/obsidian-zotero-integration/blob/main/docs/Templating.md)
+- [Dataview 文档](https://blacksmithgu.github.io/obsidian-dataview/)
+- [Dataview 查询结构](https://blacksmithgu.github.io/obsidian-dataview/queries/structure/)
+- [Obsidian Copilot](https://github.com/logancyang/obsidian-copilot)
+- [Text Generator](https://github.com/nhaouari/obsidian-textgenerator-plugin)
 
 ## 动态扩库工作流
 
