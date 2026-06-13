@@ -10,6 +10,7 @@ Zotero 是文献事实来源，负责：
 - PDF 附件
 - 本地附件路径
 - citation key
+- 原始 PDF
 
 Obsidian 不替代 Zotero，只保存“阅读后的知识结构”。
 
@@ -54,6 +55,31 @@ status: unread
 5. Codex 生成或更新文献卡片。
 6. 再更新 `01-文献矩阵.md` 和相关问题节点。
 
+## Better BibTeX 自动同步
+
+推荐把 `.bib` 设置成自动更新，而不是每次手动导出。
+
+操作：
+
+1. Zotero 中新建一个 collection，例如 `Gravity-Magnetic Inversion`。
+2. 把要进入知识图谱的论文都放进这个 collection。
+3. 右键 collection，选择 `Export Collection...`。
+4. Format 选择 `Better BibTeX`。
+5. 勾选 `Keep updated`。
+6. 保存到 `<vault>/Zotero/导出文件/research-library.bib`。
+7. 以后 Zotero collection 变大时，这个 `.bib` 会自动同步。
+
+同步后的 Codex 处理逻辑：
+
+1. 读取 `research-library.bib`。
+2. 提取全部 citekey。
+3. 对比 `Zotero/文献卡片/` 中已有卡片。
+4. 只为新增 citekey 创建卡片。
+5. 旧卡片只补空字段，不覆盖 `PDF 精读证据` 和人工笔记。
+6. 更新 `01-文献矩阵.md`、问题节点和 Dataview 字段。
+
+这个流程让仓库可以跟着 Zotero 文献库持续变大。
+
 ## PDF 精读
 
 精读不是“总结摘要”，而是补证据：
@@ -79,3 +105,11 @@ status: pdf-reviewed
 pdf_reviewed: true
 pdf_review_date: "YYYY-MM-DD"
 ```
+
+## Zotero 与 Obsidian 的职责边界
+
+- PDF 永远优先保存在 Zotero。
+- Obsidian 文献卡片只保存路径、证据和问题树关系。
+- `.bib` 是 Zotero 到 Obsidian/Codex 的同步接口。
+- 不建议直接修改 Zotero `storage` 目录。
+- 不建议把 Zotero 数据库或 PDF 上传到 GitHub。

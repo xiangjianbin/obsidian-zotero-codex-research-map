@@ -68,7 +68,14 @@
 1. 安装 Better BibTeX for Zotero。
 2. 在 Zotero 中为文献生成稳定 citekey。
 3. 每篇文献保留 DOI、URL、PDF、本地附件。
-4. 需要批量导出时，把 `.bib` 导出到 `<vault>/Zotero/导出文件/`。
+4. 建立一个研究 collection，例如 `Research Map`。
+5. 把要进入知识图谱的论文放入这个 collection。
+6. 右键 collection，选择 `Export Collection...`。
+7. Format 选择 `Better BibTeX`。
+8. 勾选 `Keep updated`。
+9. 把 `.bib` 保存到 `<vault>/Zotero/导出文件/research-library.bib`。
+
+这样 Zotero 中新增论文和 PDF 后，BibTeX 文件会自动同步，Codex 可以通过这个 `.bib` 增量更新 Obsidian。
 
 ## 5. 配置 Zotero Integration
 
@@ -93,6 +100,21 @@
 - 更新问题节点。
 - 检查链接、重复卡片和公开前隐私风险。
 - 提交并发布到 GitHub。
+
+## 7. 让文献库持续增长
+
+日常使用时按这个循环：
+
+1. AI 或人工发现新论文。
+2. 先生成候选清单，不直接进入知识库。
+3. 研究者确认纳入。
+4. 用 Zotero `Add Item(s) by Identifier` 批量导入 DOI，或用 Zotero Connector 保存网页。
+5. Zotero 保存 PDF 和元数据。
+6. Better BibTeX 自动更新 `research-library.bib`。
+7. Codex 读取 `.bib`，识别新增 citekey。
+8. Codex 更新 Obsidian 文献卡片、问题节点、文献矩阵。
+
+这就是“Zotero 是原始库，Obsidian 是知识图谱，Codex 是同步和整理代理”的完整闭环。
 
 不建议让 Codex 自动决定：
 

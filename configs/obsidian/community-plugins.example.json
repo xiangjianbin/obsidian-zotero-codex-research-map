@@ -4,5 +4,7 @@
   "obsidian-zotero-desktop-connector",
   "advanced-canvas",
   "obsidian-excalidraw-plugin",
-  "mermaid-tools"
+  "mermaid-tools",
+  "copilot",
+  "obsidian-textgenerator-plugin"
 ]
